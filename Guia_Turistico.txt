@@ -1,0 +1,62 @@
+Guia Turistico para uma cidade
+
+Componentyes:
+Ecra iinicial com nome da cidade e inforalão meteorológica
+Categorias turísticas
+Pontos de interesse (por um .json local)
+Detalhes de cada ponto turístico
+Secção de favoritos
+
+Requisitor Funcionas
+Home Page - mostrar cidade e uma imagem
+Informações meteorológicas com OPEN METEO
+Botão para categorias turísticas
+
+Categorias Turísticas
+Listagem de categorias
+Cada categoria tem uma lista de pontos de interesse dela mesma na cidade
+
+Pontos de Interesse
+dados devem ser carregados em Json
+cada ponto tem - ID, nome, descrição pequena, descrição, imagem, horário, preço e localização
+Mostrar lista de pontos por categoria com imagem e nome
+
+Detalhes do Ponto
+Ao clicar num ponto, abrir ecrã de detalhe com
+Nome, imagem, descrição completa
+Horário de funcionamento
+Preço (Se aplicável)
+Localização aproximada
+Botão para adicionar/remover dos favoritos
+
+Favoritos
+Criar secção de favoritos
+Pontos marcados como favoritos devem ser guardados localmente usando shared_preferences
+
+Navegação
+Usar navigator para navegar entre ecrãs (Home → Categorias → Pontos → Detalhe)
+Opcional: usar BottomNavigationBar para alternar entre “Categorias” e “Favoritos”.
+
+
+Parâmetros de avaliação
+● Interface e interação com o utilizador
+● Obtenção do estado do tempo
+● Carregamento correto de dados do arquivo JSON
+● Navegação consistente entre as várias opções
+● Persistência de informação sobre os pontos favoritos em shared preferences
+● Adequação da aplicação a orientação portrait e landscape
+● Robustez e qualidade do código (inclui organização, tratamento de erros, exceções)
+● Relatório Técnico
+
+Entrega:
+04.01.26
+23.59
+defesa a 5 e 6 de janeiros
+eliminar: /ios, /macos, /windows, /Linux, /web (caso as tenha)
+executar comando flutter clean ou remover pastas  <proj>/.dart_tool, /flutter_build, <proj>/build 
+
+
+Relatório
+Soluções usadas, opções implementadas concretizadas e funcionais, identificar oportunidades de melhoria da aplicação.
+
+
