@@ -1,0 +1,146 @@
+{
+  "city": "Coimbra",
+  "categories": [
+    {
+      "name": "Monumentos",
+      "points": [
+        {
+          "id": 1,
+          "name": "Universidade de Coimbra",
+          "short_description": "Uma das universidades mais antigas da Europa.",
+          "description": "A Universidade de Coimbra é Património Mundial e inclui locais emblemáticos como a Biblioteca Joanina, a Sala dos Capelos e a Torre da Universidade.",
+          "image": "assets/images/universidade.jpg",
+          "schedule": "09h00 a 19h00",
+          "average_price": "12 EUR",
+          "location": "Paço das Escolas"
+        },
+        {
+          "id": 2,
+          "name": "Sé Velha de Coimbra",
+          "short_description": "Catedral românica do século XII.",
+          "description": "A Sé Velha é um dos símbolos religiosos de Coimbra e um dos melhores exemplos de arquitectura românica em Portugal.",
+          "image": "assets/images/se_velha.jpg",
+          "schedule": "10h00 a 18h00",
+          "average_price": "2 EUR",
+          "location": "Largo da Sé Velha"
+        },
+        {
+          "id": 5,
+          "name": "Igreja de Santa Cruz",
+          "short_description": "Mosteiro histórico onde estão sepultados os dois primeiros reis de Portugal.",
+          "description": "A Igreja e Mosteiro de Santa Cruz destacam-se pela sua importância histórica e pelo interior ricamente decorado, com os túmulos de D. Afonso Henriques e D. Sancho I.",
+          "image": "assets/images/santa_cruz.jpg",
+          "schedule": "09h00 a 18h00",
+          "average_price": "3 EUR",
+          "location": "Praça 8 de Maio"
+        },
+        {
+          "id": 6,
+          "name": "Portugal dos Pequenitos",
+          "short_description": "Parque temático com réplicas em miniatura de monumentos portugueses.",
+          "description": "O Portugal dos Pequenitos é um espaço educativo e lúdico, ideal para famílias, com casas e monumentos em escala reduzida que representam várias regiões de Portugal e antigos territórios ultramarinos.",
+          "image": "assets/images/portugal_pequenitos.jpg",
+          "schedule": "10h00 a 19h00",
+          "average_price": "15 EUR",
+          "location": "Parque Dr. Manuel Braga"
+        }
+      ]
+    },
+    {
+      "name": "Museus",
+      "points": [
+        {
+          "id": 3,
+          "name": "Museu Nacional Machado de Castro",
+          "short_description": "Museu de arte com destaque para esculturas e o criptopórtico romano.",
+          "description": "O Museu Machado de Castro é conhecido pelo seu extenso acervo artístico e pelo impressionante criptopórtico romano que pode ser visitado.",
+          "image": "assets/images/machado_castro.jpg",
+          "schedule": "10h00 a 18h00",
+          "average_price": "6 EUR",
+          "location": "Largo Dr. José Rodrigues"
+        },
+        {
+          "id": 7,
+          "name": "Museu da Ciência da Universidade de Coimbra",
+          "short_description": "Museu interativo dedicado à ciência e à história das coleções científicas da Universidade.",
+          "description": "O Museu da Ciência apresenta exposições interativas sobre física, química e história natural, instalado em antigos laboratórios universitários.",
+          "image": "assets/images/museu_ciencia.jpg",
+          "schedule": "10h00 a 18h00",
+          "average_price": "5 EUR",
+          "location": "Laboratório Chimico, Calçada Martim de Freitas"
+        },
+        {
+          "id": 8,
+          "name": "Museu da Água de Coimbra",
+          "short_description": "Museu dedicado à história do abastecimento de água na cidade.",
+          "description": "O Museu da Água explica como a água chega a Coimbra, com destaque para estruturas históricas de captação, tratamento e distribuição.",
+          "image": "assets/images/museu_agua.jpg",
+          "schedule": "10h00 a 17h00",
+          "average_price": "2 EUR",
+          "location": "Parque Dr. Manuel Braga"
+        }
+      ]
+    },
+    {
+      "name": "Gastronomia",
+      "points": [
+        {
+          "id": 4,
+          "name": "Chanfana Restaurante O Telheiro",
+          "short_description": "Restaurante tradicional conhecido pela chanfana.",
+          "description": "O Telheiro serve pratos típicos da região, com destaque para a chanfana feita em caçoilas de barro e cozinhada lentamente.",
+          "image": "assets/images/chanfana_telheiro.jpg",
+          "schedule": "12h00 a 22h00",
+          "average_price": "15 EUR",
+          "location": "Rua dos Combatentes"
+        },
+        {
+          "id": 9,
+          "name": "Restaurante A Taberna",
+          "short_description": "Espaço típico com forno a lenha e pratos regionais.",
+          "description": "A Taberna é conhecida pela chanfana e outros pratos tradicionais, servidos num ambiente acolhedor com forno a lenha no centro da sala.",
+          "image": "assets/images/a_taberna.jpg",
+          "schedule": "12h30 a 15h00; 19h30 a 22h00",
+          "average_price": "15 EUR",
+          "location": "Rua dos Combatentes da Grande Guerra"
+        },
+                {
+                  "id": 10,
+                  "name": "A Cozinha da Maria",
+                  "short_description": "Restaurante no centro histórico com cozinha típica.",
+                  "description": "A Cozinha da Maria oferece pratos tradicionais como chanfana e bacalhau, numa sala acolhedora junto à Praça do Comércio.",
+                  "image": "assets/images/cozinha_maria.jpg",
+                  "schedule": "12h00 a 15h00; 19h00 a 22h00",
+                  "average_price": "25 EUR",
+                  "location": "Praça do Comércio"
+                }
+              ]
+            },
+            {
+              "name": "Parques",
+              "points": [
+                {
+                  "id": 11,
+                  "name": "Parque Verde do Mondego",
+                  "short_description": "Espaço de lazer à beira-rio com ciclovias e esplanadas.",
+                  "description": "O Parque Verde do Mondego é um dos locais favoritos dos habitantes de Coimbra para passeios, desporto e lazer, oferecendo uma vista privilegiada sobre o rio e a cidade.",
+                  "image": "assets/images/parque_verde.jpg",
+                  "schedule": "Aberto 24h",
+                  "average_price": "Grátis",
+                  "location": "Avenida da Lousã"
+                },
+                {
+                  "id": 12,
+                  "name": "Jardim Botânico da UC",
+                  "short_description": "Um dos jardins botânicos mais antigos e importantes de Portugal.",
+                  "description": "O Jardim Botânico da Universidade de Coimbra foi fundado em 1772 pelo Marquês de Pombal e possui uma vasta coleção de plantas exóticas e estufas históricas.",
+                  "image": "assets/images/jardim_botanico.jpg",
+                  "schedule": "09h00 a 17h30",
+                  "average_price": "Grátis (Jardim)",
+                  "location": "Calçada Martim de Freitas"
+                }
+              ]
+            }
+          ]
+        }
+        
