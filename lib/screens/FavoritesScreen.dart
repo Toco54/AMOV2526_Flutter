@@ -3,7 +3,9 @@ import '../services/DataManager.dart';
 import '../widgets/POICard.dart';
 import 'POIDetailsScreen.dart';
 
+/// Ecrã que apresenta a lista de locais marcados como favoritos pelo utilizador.
 class FavoritesScreen extends StatefulWidget {
+  /// Callback para redirecionar o utilizador para o ecrã de categorias caso não existam favoritos.
   final VoidCallback? onGoToCategories;
 
   const FavoritesScreen({super.key, this.onGoToCategories});
@@ -13,20 +15,21 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
+  /// Instância do gestor de dados para manipulação do estado dos favoritos.
   final DataManager _dataManager = DataManager();
 
   @override
   Widget build(BuildContext context) {
-    // Get fresh list of favorites on every build
+    // Obtém a lista atualizada de favoritos em cada build.
     final favoritePois = _dataManager.getFavorites();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5), // Light grey background
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.home, color: Colors.blue),
           onPressed: () {
-            // Pop the entire MainScreen to return to HomeScreen
+            // Fecha o MainScreen voltando para o HomeScreen inicial.
             Navigator.of(context, rootNavigator: true).pop();
           },
         ),
@@ -43,12 +46,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               child: Container(
                 margin: const EdgeInsets.all(20),
                 padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
-                width: double.infinity,
+                width: double.infinity, // Ocupa toda a largura disponível.
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF2F4F7), // Light grey background
+                  color: const Color(0xFFF2F4F7), // Cinza azulado muito claro.
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
+                  // mainAxisSize: MainAxisSize.min faz com que a coluna ocupe apenas o espaço 
+                  // necessário para os seus filhos, em vez de esticar para toda a altura.
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Icon(Icons.favorite_border, size: 50, color: Color(0xFF9EA6B8)),
@@ -69,7 +74,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         'Categorias',
                         style: TextStyle(
                           fontSize: 18,
-                          color: Color(0xFF4B39EF), // Deep blue/purple
+                          color: Color(0xFF4B39EF),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -83,21 +88,23 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               itemCount: favoritePois.length,
               itemBuilder: (context, index) {
                 final poi = favoritePois[index];
-                return PoiCard(
+                return POICard(
                   poi: poi,
                   isFavorite: true,
                   showCategory: true,
                   onToggleFavorite: () async {
+                    // Remove dos favoritos e atualiza o estado local para refrescar a lista.
                     await _dataManager.toggleFavorite(poi.id);
-                    setState(() {}); // Update UI to remove item from list
+                    setState(() {});
                   },
                   onTap: () {
+                    // Abre detalhes usando o rootNavigator para sobrepor a barra de abas.
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
                         builder: (context) => POIDetailsScreen(poi: poi),
                       ),
                     ).then((_) {
-                      // When returning from details, update UI
+                      // Refresca a lista ao voltar (caso tenha sido removido dos favoritos no ecrã de detalhes).
                       setState(() {});
                     });
                   },

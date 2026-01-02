@@ -5,6 +5,10 @@ import '../services/WeatherService.dart';
 import '../models/Weather.dart';
 import 'MainScreen.dart';
 
+/// Ecrã de boas-vindas e introdução da aplicação.
+///
+/// Apresenta uma imagem de fundo apelativa, o nome da cidade e informações 
+/// meteorológicas em tempo real.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -13,16 +17,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  /// Informação meteorológica atual processada do serviço.
   WeatherInfo? _weather;
+  /// Estado que controla a visibilidade do indicador de carregamento.
   bool _loadingWeather = true;
+  /// Instância do gestor de dados para obter informações globais (ex: nome da cidade).
   final DataManager _dataManager = DataManager();
+  /// Temporizador para atualizar o clima em intervalos regulares.
   Timer? _weatherTimer;
 
   @override
   void initState() {
     super.initState();
     _fetchWeather();
-    // Update weather every 15 minutes
+    // Atualiza a meteorologia a cada 15 minutos para manter os dados frescos.
     _weatherTimer = Timer.periodic(const Duration(minutes: 15), (timer) {
       _fetchWeather();
     });
@@ -30,10 +38,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
+    // Garante o cancelamento do timer para evitar fugas de memória.
     _weatherTimer?.cancel();
     super.dispose();
   }
 
+  /// Obtém os dados meteorológicos através do [WeatherService].
   Future<void> _fetchWeather() async {
     final weather = await WeatherService().fetchWeather();
     if (mounted) {
@@ -47,18 +57,20 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Stack permite a sobreposição de elementos no eixo Z (fundo -> gradiente -> conteúdo).
       body: Stack(
         children: [
-          // Background Image
+          // Imagem de Fundo (Asset local)
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/coimbra_home.jpg'),
-                fit: BoxFit.cover,
+                fit: BoxFit.cover, // Garante que a imagem preencha todo o ecrã sem distorção.
               ),
             ),
           ),
-          // Gradient Overlay
+          // Sobreposição de Gradiente para legibilidade do texto
+          // UX: Escurece a imagem progressivamente para garantir contraste suficiente para o texto branco.
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -71,7 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          // Content
+          // Conteúdo principal
+          // SafeArea: Protege o conteúdo de interrupções físicas do hardware (notches, barras de estado).
+          // Garante que o texto e botões não fiquem "cortados" em dispositivos modernos.
           SafeArea(
             child: Center(
               child: Column(
@@ -83,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.white,
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
-                      shadows: [Shadow(blurRadius: 10, color: Colors.black)],
+                      shadows: [Shadow(blurRadius: 10, color: Colors.black)], // Sombra suave para destacar do fundo complexo.
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -106,11 +120,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ).copyWith(
+                      // Gestão de estado visual do botão:
+                      // Aumenta a elevação (sombra) quando o rato passa por cima (Desktop/Web) ou é pressionado.
                       elevation: WidgetStateProperty.resolveWith<double>(
                         (Set<WidgetState> states) {
-                          if (states.contains(WidgetState.pressed)) return 2;
-                          if (states.contains(WidgetState.hovered)) return 12;
-                          return 8;
+                          if (states.contains(WidgetState.pressed)) return 2; // "Afunda" ao clicar
+                          if (states.contains(WidgetState.hovered)) return 12; // "Levanta" ao passar o rato
+                          return 8; // Estado repouso
                         },
                       ),
                     ),
@@ -128,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Constrói a secção visual da meteorologia.
   Widget _buildWeatherSection() {
     if (_loadingWeather) {
       return const CircularProgressIndicator(color: Colors.white);
@@ -138,6 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
         style: TextStyle(color: Colors.white),
       );
     }
+    // Container: Aqui usado para criar uma "caixa" semi-transparente que agrupa o clima.
+    // borderRadius e padding ajudam na organização visual e estética.
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(

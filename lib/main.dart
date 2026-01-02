@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'services/DataManager.dart';
 import 'screens/HomeScreen.dart';
 
+/// Ponto de entrada principal da aplicação.
+/// Configura o ambiente inicial, carrega os dados e inicia o Flutter.
 void main() async {
+  // Garante inicialização das bindings do Flutter antes de operações assíncronas.
   WidgetsFlutterBinding.ensureInitialized();
-  // Initialize data before starting the app
+  // Inicialização prévia dos dados para garantir integridade no arranque.
   await DataManager().loadData();
-  
   runApp(const MyApp());
 }
 
+/// Widget raiz da aplicação que define o tema global e o ecrã inicial.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
