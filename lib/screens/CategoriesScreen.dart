@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../providers/POIProvider.dart';
+import '../services/DataManager.dart';
 import '../widgets/CategoryCard.dart';
 import 'POIsListScreen.dart';
 
@@ -9,7 +8,7 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final poiProvider = Provider.of<POIProvider>(context);
+    final dataManager = DataManager();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5), // Light grey background
@@ -28,13 +27,13 @@ class CategoriesScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: poiProvider.isLoading
+      body: dataManager.isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
               padding: const EdgeInsets.all(20),
-              itemCount: poiProvider.categories.length,
+              itemCount: dataManager.categories.length,
               itemBuilder: (context, index) {
-                final category = poiProvider.categories[index];
+                final category = dataManager.categories[index];
                 return CategoryCard(
                   categoryName: category,
                   onTap: () {

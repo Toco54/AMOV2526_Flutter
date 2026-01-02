@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../providers/POIProvider.dart';
+import '../services/DataManager.dart';
 import '../widgets/POICard.dart';
 import 'POIDetailsScreen.dart';
 
-class FavoritesScreen extends StatelessWidget {
+class FavoritesScreen extends StatefulWidget {
   final VoidCallback? onGoToCategories;
 
   const FavoritesScreen({super.key, this.onGoToCategories});
 
   @override
+  State<FavoritesScreen> createState() => _FavoritesScreenState();
+}
+
+class _FavoritesScreenState extends State<FavoritesScreen> {
+  final DataManager _dataManager = DataManager();
+
+  @override
   Widget build(BuildContext context) {
-    final poiProvider = Provider.of<POIProvider>(context);
-    final favorites = poiProvider.favorites;
+    // Get fresh list of favorites on every build
+    final favoritePois = _dataManager.getFavorites();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5), // Light grey background
@@ -32,7 +38,7 @@ class FavoritesScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: favorites.isEmpty
+      body: favoritePois.isEmpty
           ? Center(
               child: Container(
                 margin: const EdgeInsets.all(20),
@@ -58,7 +64,7 @@ class FavoritesScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     TextButton(
-                      onPressed: onGoToCategories,
+                      onPressed: widget.onGoToCategories,
                       child: const Text(
                         'Categorias',
                         style: TextStyle(
@@ -74,20 +80,26 @@ class FavoritesScreen extends StatelessWidget {
             )
           : ListView.builder(
               padding: const EdgeInsets.all(20),
-              itemCount: favorites.length,
+              itemCount: favoritePois.length,
               itemBuilder: (context, index) {
-                final poi = favorites[index];
+                final poi = favoritePois[index];
                 return PoiCard(
                   poi: poi,
                   isFavorite: true,
                   showCategory: true,
-                  onToggleFavorite: () => poiProvider.toggleFavorite(poi.id),
+                  onToggleFavorite: () async {
+                    await _dataManager.toggleFavorite(poi.id);
+                    setState(() {}); // Update UI to remove item from list
+                  },
                   onTap: () {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
                         builder: (context) => POIDetailsScreen(poi: poi),
                       ),
-                    );
+                    ).then((_) {
+                      // When returning from details, update UI
+                      setState(() {});
+                    });
                   },
                 );
               },

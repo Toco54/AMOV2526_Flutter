@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'providers/POIProvider.dart';
+import 'services/DataManager.dart';
 import 'screens/HomeScreen.dart';
 
-void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => POIProvider()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Initialize data before starting the app
+  await DataManager().loadData();
+  
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

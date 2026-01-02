@@ -1,6 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../providers/POIProvider.dart';
+import '../services/DataManager.dart';
 import '../services/WeatherService.dart';
 import '../models/Weather.dart';
 import 'MainScreen.dart';
@@ -15,11 +15,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   WeatherInfo? _weather;
   bool _loadingWeather = true;
+  final DataManager _dataManager = DataManager();
+  Timer? _weatherTimer;
 
   @override
   void initState() {
     super.initState();
     _fetchWeather();
+    // Update weather every 15 minutes
+    _weatherTimer = Timer.periodic(const Duration(minutes: 15), (timer) {
+      _fetchWeather();
+    });
+  }
+
+  @override
+  void dispose() {
+    _weatherTimer?.cancel();
+    super.dispose();
   }
 
   Future<void> _fetchWeather() async {
@@ -65,18 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Consumer<POIProvider>(
-                    builder: (context, poiProvider, child) {
-                      return Text(
-                        poiProvider.city.isNotEmpty ? poiProvider.city : 'Carregando...',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 48,
-                          fontWeight: FontWeight.bold,
-                          shadows: [Shadow(blurRadius: 10, color: Colors.black)],
-                        ),
-                      );
-                    },
+                  Text(
+                    _dataManager.city.isNotEmpty ? _dataManager.city : 'Carregando...',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                      shadows: [Shadow(blurRadius: 10, color: Colors.black)],
+                    ),
                   ),
                   const SizedBox(height: 30),
                   _buildWeatherSection(),

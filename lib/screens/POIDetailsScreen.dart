@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../models/POI.dart';
-import '../providers/POIProvider.dart';
+import '../services/DataManager.dart';
 
-class POIDetailsScreen extends StatelessWidget {
+class POIDetailsScreen extends StatefulWidget {
   final POI poi;
 
   const POIDetailsScreen({super.key, required this.poi});
 
   @override
+  State<POIDetailsScreen> createState() => _POIDetailsScreenState();
+}
+
+class _POIDetailsScreenState extends State<POIDetailsScreen> {
+  final DataManager _dataManager = DataManager();
+
+  @override
   Widget build(BuildContext context) {
+    final isFav = _dataManager.isFavorite(widget.poi.id);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(poi.name),
+        title: Text(widget.poi.name),
         actions: [
-          Consumer<POIProvider>(
-            builder: (context, provider, child) {
-              final isFav = provider.isFavorite(poi.id);
-              return IconButton(
-                icon: Icon(isFav ? Icons.favorite : Icons.favorite_border),
-                color: isFav ? Colors.red : null,
-                onPressed: () => provider.toggleFavorite(poi.id),
-              );
+          IconButton(
+            icon: Icon(isFav ? Icons.favorite : Icons.favorite_border),
+            color: isFav ? Colors.red : null,
+            onPressed: () async {
+              await _dataManager.toggleFavorite(widget.poi.id);
+              setState(() {}); // Update local UI (heart icon)
             },
           ),
         ],
@@ -31,7 +37,7 @@ class POIDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(
-              poi.image,
+              widget.poi.image,
               width: double.infinity,
               height: 250,
               fit: BoxFit.cover,
@@ -47,13 +53,13 @@ class POIDetailsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    poi.name,
+                    widget.poi.name,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
-                  _buildInfoRow(Icons.schedule, 'Horário', poi.schedule),
-                  _buildInfoRow(Icons.euro, 'Preço Médio', poi.averagePrice),
-                  _buildInfoRow(Icons.location_on, 'Localização aproximada', poi.location),
+                  _buildInfoRow(Icons.schedule, 'Horário', widget.poi.schedule),
+                  _buildInfoRow(Icons.euro, 'Preço Médio', widget.poi.averagePrice),
+                  _buildInfoRow(Icons.location_on, 'Localização aproximada', widget.poi.location),
                   const Divider(height: 32),
                   const Text(
                     'Sobre',
@@ -61,7 +67,7 @@ class POIDetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    poi.description,
+                    widget.poi.description,
                     style: const TextStyle(fontSize: 16, height: 1.5),
                   ),
                 ],
