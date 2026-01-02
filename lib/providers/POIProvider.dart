@@ -2,25 +2,25 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/poi.dart';
+import '../models/POI.dart';
 
-class PoiProvider with ChangeNotifier {
+class POIProvider with ChangeNotifier {
   String _city = '';
-  List<PointOfInterest> _allPois = [];
+  List<POI> _allPOIs = [];
   List<String> _categories = [];
   Set<int> _favoriteIds = {};
   bool _isLoading = true;
 
   String get city => _city;
-  List<PointOfInterest> get allPois => _allPois;
+  List<POI> get allPOIs => _allPOIs;
   List<String> get categories => _categories;
   Set<int> get favoriteIds => _favoriteIds;
   bool get isLoading => _isLoading;
 
-  List<PointOfInterest> get favorites => 
-      _allPois.where((poi) => _favoriteIds.contains(poi.id)).toList();
+  List<POI> get favorites => 
+      _allPOIs.where((poi) => _favoriteIds.contains(poi.id)).toList();
 
-  PoiProvider() {
+  POIProvider() {
     loadData();
   }
 
@@ -34,18 +34,18 @@ class PoiProvider with ChangeNotifier {
       
       _city = data['city'] ?? 'Cidade';
 
-      List<PointOfInterest> loadedPois = [];
+      List<POI> loadedPOIs = [];
       List<String> loadedCategories = [];
 
       for (var catJson in data['categories']) {
         String categoryName = catJson['name'];
         loadedCategories.add(categoryName);
         for (var poiJson in catJson['points']) {
-          loadedPois.add(PointOfInterest.fromJson(poiJson, categoryName));
+          loadedPOIs.add(POI.fromJson(poiJson, categoryName));
         }
       }
 
-      _allPois = loadedPois;
+      _allPOIs = loadedPOIs;
       _categories = loadedCategories;
       
       await _loadFavorites();
@@ -84,7 +84,7 @@ class PoiProvider with ChangeNotifier {
     return _favoriteIds.contains(poiId);
   }
 
-  List<PointOfInterest> getPoisByCategory(String category) {
-    return _allPois.where((poi) => poi.category == category).toList();
+  List<POI> getPOIsByCategory(String category) {
+    return _allPOIs.where((poi) => poi.category == category).toList();
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/poi_provider.dart';
-import 'poi_detail_screen.dart';
+import '../providers/POIProvider.dart';
+import '../widgets/POICard.dart';
+import 'POIDetailsScreen.dart';
 
 class FavoritesScreen extends StatelessWidget {
   final VoidCallback? onGoToCategories;
@@ -10,7 +11,7 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final poiProvider = Provider.of<PoiProvider>(context);
+    final poiProvider = Provider.of<POIProvider>(context);
     final favorites = poiProvider.favorites;
 
     return Scaffold(
@@ -76,59 +77,18 @@ class FavoritesScreen extends StatelessWidget {
               itemCount: favorites.length,
               itemBuilder: (context, index) {
                 final poi = favorites[index];
-                return Card(
-                  clipBehavior: Clip.antiAlias,
-                  elevation: 2,
-                  margin: const EdgeInsets.only(bottom: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.all(8),
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        poi.image,
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => 
-                            const Icon(Icons.image_not_supported, size: 60),
+                return PoiCard(
+                  poi: poi,
+                  isFavorite: true,
+                  showCategory: true,
+                  onToggleFavorite: () => poiProvider.toggleFavorite(poi.id),
+                  onTap: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(
+                        builder: (context) => POIDetailsScreen(poi: poi),
                       ),
-                    ),
-                    title: Text(poi.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(poi.shortDescription),
-                        const SizedBox(height: 4),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Colors.blue.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            poi.category,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.blue[800],
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.favorite, color: Colors.red),
-                      onPressed: () => poiProvider.toggleFavorite(poi.id),
-                    ),
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                          builder: (context) => PoiDetailScreen(poi: poi),
-                        ),
-                      );
-                    },
-                  ),
+                    );
+                  },
                 );
               },
             ),

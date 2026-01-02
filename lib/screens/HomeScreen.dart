@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/poi_provider.dart';
-import '../services/weather_service.dart';
-import '../models/weather.dart';
-import 'main_screen.dart';
+import '../providers/POIProvider.dart';
+import '../services/WeatherService.dart';
+import '../models/Weather.dart';
+import 'MainScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Consumer<PoiProvider>(
+                  Consumer<POIProvider>(
                     builder: (context, poiProvider, child) {
                       return Text(
                         poiProvider.city.isNotEmpty ? poiProvider.city : 'Carregando...',

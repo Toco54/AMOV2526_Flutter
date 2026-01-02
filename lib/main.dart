@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'providers/poi_provider.dart';
-import 'screens/home_screen.dart';
+import 'providers/POIProvider.dart';
+import 'screens/HomeScreen.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => PoiProvider()),
+        ChangeNotifierProvider(create: (_) => POIProvider()),
       ],
       child: const MyApp(),
     ),

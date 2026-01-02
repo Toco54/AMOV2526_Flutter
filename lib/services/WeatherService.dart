@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import '../models/weather.dart';
+import '../models/Weather.dart';
 
 class WeatherService {
   static const String _baseUrl = 'https://api.open-meteo.com/v1/forecast';

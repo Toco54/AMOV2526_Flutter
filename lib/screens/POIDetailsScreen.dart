@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/poi.dart';
-import '../providers/poi_provider.dart';
+import '../models/POI.dart';
+import '../providers/POIProvider.dart';
 
-class PoiDetailScreen extends StatelessWidget {
-  final PointOfInterest poi;
+class POIDetailsScreen extends StatelessWidget {
+  final POI poi;
 
-  const PoiDetailScreen({super.key, required this.poi});
+  const POIDetailsScreen({super.key, required this.poi});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class PoiDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(poi.name),
         actions: [
-          Consumer<PoiProvider>(
+          Consumer<POIProvider>(
             builder: (context, provider, child) {
               final isFav = provider.isFavorite(poi.id);
               return IconButton(

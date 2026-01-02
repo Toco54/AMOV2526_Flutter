@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'categories_screen.dart';
-import 'favorites_screen.dart';
+import 'CategoriesScreen.dart';
+import 'FavoritesScreen.dart';
 
 class MainScreen extends StatefulWidget {
   final int initialIndex;

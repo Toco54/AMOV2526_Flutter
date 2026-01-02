@@ -1,4 +1,4 @@
-class PointOfInterest {
+class POI {
   final int id;
   final String name;
   final String shortDescription;
@@ -9,7 +9,7 @@ class PointOfInterest {
   final String location;
   final String category;
 
-  PointOfInterest({
+  POI({
     required this.id,
     required this.name,
     required this.shortDescription,
@@ -21,8 +21,8 @@ class PointOfInterest {
     required this.category,
   });
 
-  factory PointOfInterest.fromJson(Map<String, dynamic> json, String category) {
-    return PointOfInterest(
+  factory POI.fromJson(Map<String, dynamic> json, String category) {
+    return POI(
       id: json['id'],
       name: json['name'],
       shortDescription: json['short_description'],
